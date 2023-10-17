@@ -26,6 +26,11 @@ const Login = () => {
   console.log(result);
 };
 
+useEffect(()=>{
+
+  login()
+})
+
   return (
     <>
       <div className="bg-[#EFF6FF] h-screen flex justify-center items-center">
