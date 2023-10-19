@@ -1,41 +1,44 @@
 "use client";
-
 import { apiHelper } from "@/lib/apiClient";
 import { LoginApis } from "@/services/generalApis";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+
+
 
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
+  const router = useRouter();
+  
   const login = async () => {
-
+    
     if(!email || !password){
-        console.log('data not foound');
-        return;        
+      toast.error('Please Enter Email and Password')
+      return;        
     }
-    let inputEmail = email
-
   let inputData = {
-    username: "testuser@gmail.com",
-    password: "P@ss@123",
+    username: email,
+    password: password,
   };
   let result = await apiHelper(LoginApis.LOGIN(), "POST", inputData);
-  debugger;
-  console.log(result);
+
+  if(Object.keys(result.success).length!=0){
+      router.push('/dashboard')
+  }
+  else{
+    toast.error('Something Went Wrong')
+  }
 };
 
-useEffect(()=>{
-
-  login()
-})
 
   return (
     <>
       <div className="bg-[#EFF6FF] h-screen flex justify-center items-center">
         <div className="bg-white py-20 px-10 rounded-lg h-[514px]">
-          <form className="flex flex-col gap-9">
+            <div className="flex flex-col gap-9">
             <label>
               <p className="text-[14px] mb-2">Email</p>
               <input
@@ -64,7 +67,7 @@ useEffect(()=>{
                 SIGN IN
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>

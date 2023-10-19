@@ -6,13 +6,11 @@ export const apiHelper = async (endPoint, method, inputData, customHeaders = {},
     headers: myHeaders,
     body: inputData ? JSON.stringify(inputData) : undefined,
     redirect: "follow",
-    credentials: "include"
+    credentials: "include",
   };
   try {
-    debugger;
     return await fetch(endPoint, requestOptions).then(async response => {
       if (response.status === 401) {
-        debugger;
         window.location.href = `/`;
         return Promise.reject({ message: 'Please re-authenticate.' })
       }
