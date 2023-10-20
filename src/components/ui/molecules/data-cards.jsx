@@ -79,7 +79,7 @@ const DataCards = () => {
             </CardHeader>
             <CardContent className="flex items-center gap-4 p-0 mt-4">
               <div className="text-2xl font-bold">{totalUsers}</div>
-              <p className="text-xs">+20.1%</p>
+              {/* <p className="text-xs">+20.1%</p> */}
             </CardContent>
           </Card>
           <Card className="p-4 rounded-xl shadow-lg">
@@ -102,7 +102,7 @@ const DataCards = () => {
             </CardHeader>
             <CardContent className="flex items-center gap-4 p-0 mt-4">
               <div className="text-2xl font-bold">{activeUsers}</div>
-              <p className="text-xs">+20.1%</p>
+              {/* <p className="text-xs">+20.1%</p> */}
             </CardContent>
           </Card>
           <Card className="p-4 rounded-xl shadow-lg">
@@ -125,7 +125,7 @@ const DataCards = () => {
             </CardHeader>
             <CardContent className="flex items-center gap-4 p-0 mt-4">
               <div className="text-2xl font-bold">{peakTime}</div>
-              <p className="text-xs">+20.1%</p>
+              {/* <p className="text-xs">+20.1%</p> */}
             </CardContent>
           </Card>
           <Card className="p-4 rounded-xl shadow-lg">
@@ -148,7 +148,7 @@ const DataCards = () => {
             </CardHeader>
             <CardContent className="flex items-center gap-4 p-0 mt-4">
               <div className="text-2xl font-bold">{pausedUsers}</div>
-              <p className="text-xs">+20.1%</p>
+              {/* <p className="text-xs">+20.1%</p> */}
             </CardContent>
           </Card>
         </div>

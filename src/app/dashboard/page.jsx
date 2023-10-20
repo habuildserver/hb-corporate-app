@@ -31,6 +31,7 @@ import SessionGraph from "@/components/ui/molecules/SessionAttendancegraph";
 // import { LogOut } from "lucide-react";
 import LogOut from "@/components/atoms/logout";
 import { AgeParticipationgraph } from "@/components/ui/molecules/AgeParticipationgraph";
+import { GenderParticipationgraph } from "@/components/ui/molecules/GenderParticipationgraph";
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
 const API_BASE_URL = process.env.API_BASE_URL;
 // export const metadata: Metadata = {
@@ -90,6 +91,7 @@ const Dashboard = () => {
                 width="32"
                 height="32"
                 className=""
+                alt="habuild_logo"
               />
               <p className="text-[#176FC1] text-[24px] font-medium">
                 Welcome to Habuild Yoga Dashboard
@@ -158,7 +160,7 @@ const Dashboard = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                      <ParticipationGraph />
+                      <GenderParticipationgraph />
                     </CardContent>
                   </Card>
                   {/* <Card className="col-span-3">

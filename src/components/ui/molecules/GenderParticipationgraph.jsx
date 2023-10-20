@@ -6,43 +6,36 @@ import { useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { ResponsivePie } from "@nivo/pie";
 
-export function AgeParticipationgraph() {
-  const specificColors = {
-    "0-20": "hsl(0, 0%, 0%)",
-    "20-30": "hsl(0, 70%, 50%)",
-    "30-40": "hsl(0, 70%, 50%)",
-    "40-50": "hsl(0, 70%, 50%)",
-    "50-60": "hsl(0, 70%, 50%)",
-    "60-70": "hsl(0, 70%, 50%)",
-    "70+": "hsl(0, 70%, 50%)",
-  };
+export function GenderParticipationgraph() {
+    const specificGenderColors = {
+        "male": "hsl(240, 70%, 50%)",
+        "female": "hsl(0, 70%, 50%)",
+        "transgender": "hsl(120, 70%, 50%)",
+        "undisclosed": "hsl(60, 70%, 50%)",
+      };
+      
 
   const [formattedData, setFormattedData] = useState({});
   // let formattedData = {}
 
-  const getAgeParticipationData = async () => {
+  const getGenderParticipationData = async () => {
     let result = await apiHelper(
-      CorporatedataApis.GET_ORG_AGE_PARTICIPATION(),
+      CorporatedataApis.GET_ORG_GENDER_PARTICIPATION(),
       "GET"
     );
-    if (Object.keys(result.success).length != 0) {
-      const formattedData = result?.success?.map((item, index) => ({
-        id: item.age_range,
-        label: `${item.age_range} + yrs`,
-        value: parseInt(item.user_count, 10),
-        color:
-          specificColors[item.age_range] ||
-          `hsl(${(index * 60) % 360}, 70%, 50%)`,
-
-        // color: specificColors[item.age_range] || `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`
+    if (Object.keys(result?.success).length != 0) {
+      const formattedData = Object.keys(result?.success).map((gender) => ({
+        id: gender,
+        label: gender,
+        value: parseInt(result?.success[gender], 10),
+        color: specificGenderColors[gender] || `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
       }));
-
       setFormattedData(formattedData);
     }
   };
 
   useEffect(() => {
-    getAgeParticipationData();
+    getGenderParticipationData();
   }, []);
 
   return (
@@ -55,15 +48,13 @@ export function AgeParticipationgraph() {
               margin={{ top: 40, right: 80, bottom: 80, left: 10 }}
               innerRadius={0.7}
               padAngle={4}
-              cornerRadius={12}
+              cornerRadius={10}
               colors={{ scheme: "paired" }}
               borderWidth={1}
               borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
               enableArcLabels={true}
-              arcLabelsTextColor="#ffffff"
               arcLinkLabelsColor={{ from: "color" }}
               arcLinkLabelsStraightLength={15}
-              arcLinkLabelsDiagonalLength={30}
               enableArcLinkLabels={true}
               enableRadialLabels={true}
               sliceLabel={(d) => `${d.id}: ${d.value}`}
@@ -82,7 +73,7 @@ export function AgeParticipationgraph() {
                   anchor: "right",
                   direction: "column",
                   justify: false,
-                  translateX: 75,
+                  translateX: 65,
                   translateY: 0,
                   itemWidth: 80,
                   itemHeight: 19,
