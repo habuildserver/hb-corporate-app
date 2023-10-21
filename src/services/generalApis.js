@@ -7,7 +7,7 @@ export const LoginApis = {
 
 export const CorporatedataApis = {
   GET_ORG_STATS: ()=> `${API_BASE_URL}/getOrgStats`,
-  GET_ORG_PARTICIPATION: ()=>`${API_BASE_URL}/getOrgParticipation`,
+  GET_ORG_PARTICIPATION: (range)=>`${API_BASE_URL}/getOrgParticipation?range=${range}`,
   GET_ORG_ATTENDANCE: ()=>`${API_BASE_URL}/getOrgAttendance`,
   GET_ORG_AGE_PARTICIPATION: ()=>`${API_BASE_URL}/getAgeStats`,
   GET_ORG_GENDER_PARTICIPATION: ()=>`${API_BASE_URL}/getGenderStats`,

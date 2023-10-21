@@ -10,6 +10,7 @@ const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const login = async () => {
@@ -25,6 +26,7 @@ const Login = () => {
       toast.error("Please Enter Password");
       return;
     }
+    setLoading(true);
     let inputData = {
       username: email,
       password: password,
@@ -33,9 +35,12 @@ const Login = () => {
 
     if (Object.keys(result.success).length != 0) {
       router.push("/dashboard");
+      setLoading(false);
     } else {
+      setLoading(false);
       toast.error(`${result.error.message}` || "Something went wrong");
     }
+    setLoading(false);
   };
 
   return (
@@ -72,6 +77,20 @@ const Login = () => {
               />
             </label>
             <div>
+
+              {loading?
+              <>
+              <p className="bg-[#176FC1] p-2 text-center rounded-lg w-full text-white text-[10px] font-bold">
+              <div className="flex justify-center  items-center">
+                    <div
+                      className="animate-spin rounded-full h-5 w-5 border-[#fff] mr-2"
+                      style={{
+                        borderTop: "2px solid #fff",
+                      }}
+                    ></div>
+                  </div>
+              </p>
+              </>:
               <button
                 className="bg-[#176FC1] p-2 text-center rounded-lg w-full text-white text-[10px] font-bold"
                 onClick={() => {
@@ -79,7 +98,7 @@ const Login = () => {
                 }}
               >
                 SIGN IN
-              </button>
+              </button>}
             </div>
           </div>
         </div>

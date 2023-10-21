@@ -26,37 +26,28 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import SessionGraph from "@/components/ui/molecules/SessionAttendancegraph";
 // import { LogOut } from "lucide-react";
 import LogOut from "@/components/atoms/logout";
 import { AgeParticipationgraph } from "@/components/ui/molecules/AgeParticipationgraph";
 import { GenderParticipationgraph } from "@/components/ui/molecules/GenderParticipationgraph";
 import PowerUser from "@/components/ui/molecules/PowerUser";
+import { useState } from "react";
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
-const API_BASE_URL = process.env.API_BASE_URL;
-// export const metadata: Metadata = {
-//   title: "Dashboard",
-//   description: "Example dashboard app built using the components.",
-// }
-
-
 
 const Dashboard = () => {
-
-
-
+  const [participationType, setParticipationtype] = useState("Weekly");
 
   return (
     <>
-      <div className="">
-      </div>
+      <div className=""></div>
       <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4 shadow-lg">
             {/* <TeamSwitcher /> */}
             <MainNav className="mx-6" />
-            <LogOut/>
+            <LogOut />
           </div>
         </div>
         <div>
@@ -83,7 +74,10 @@ const Dashboard = () => {
             </div> */}
           </div>
           <div className="flex px-6 py-3 max-[640px]:flex-col max-[640px]:px-2">
-            <Tabs defaultValue="overview" className="px-6 w-[70%] max-[640px]:w-full">
+            <Tabs
+              defaultValue="overview"
+              className="px-6 w-[70%] max-[640px]:w-full"
+            >
               <TabsContent value="overview" className="space-y-4">
                 <DataCards />
                 <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
@@ -92,18 +86,31 @@ const Dashboard = () => {
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
                         Frequency of Participation
                       </CardTitle>
-                      <Select>
+                      {/* <Select>
                         <SelectTrigger className="w-[180px]">
                           <SelectValue placeholder="Weekly" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="Weekly">Weekly</SelectItem>
-                          {/* <SelectItem value="Monthly">Monthly</SelectItem> */}
+                          <SelectItem value="Monthly">Monthly</SelectItem>
+                        </SelectContent>
+                      </Select> */}
+
+                      <Select
+                        value={participationType}
+                        onValueChange={setParticipationtype}
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Weekly" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Weekly">Weekly</SelectItem>
+                          <SelectItem value="Monthly">Monthly</SelectItem>
                         </SelectContent>
                       </Select>
                     </CardHeader>
                     <CardContent className="pl-2">
-                      <ParticipationGraph />
+                      <ParticipationGraph participationType={participationType}/>
                     </CardContent>
                   </Card>
                   <Card className="">
@@ -113,7 +120,7 @@ const Dashboard = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                      <SessionGraph/>
+                      <SessionGraph />
                     </CardContent>
                   </Card>
                   <Card className="">
@@ -136,22 +143,11 @@ const Dashboard = () => {
                       <GenderParticipationgraph />
                     </CardContent>
                   </Card>
-                  {/* <Card className="col-span-3">
-                    <CardHeader>
-                      <CardTitle>Recent Sales</CardTitle>
-                      <CardDescription>
-                        You made 265 sales this month.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <RecentSales />
-                    </CardContent>
-                  </Card> */}
                 </div>
               </TabsContent>
             </Tabs>
             <div className="w-[30%] max-[640px]:w-full max-[640px]:mx-auto mt-2">
-              <PowerUser/>
+              <PowerUser />
             </div>
           </div>
         </div>

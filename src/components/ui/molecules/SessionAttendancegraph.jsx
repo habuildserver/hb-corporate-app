@@ -116,7 +116,7 @@ const SessionGraph = () => {
           <p>Evening</p>
           <div className="mt-3">
           <div className="flex justify-between items-baseline">
-              <p className="whitespace-nowrap">6:30 pm</p>
+              <p className="whitespace-nowrap">5:00 pm</p>
               <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
                 <div
                   style={{
@@ -132,7 +132,7 @@ const SessionGraph = () => {
               <p>{batch4[0]?.attendedCount}</p>
             </div>
             <div className="flex justify-between items-baseline">
-              <p className="whitespace-nowrap">7:30 pm</p>
+              <p className="whitespace-nowrap">6:00 pm</p>
               <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
                 <div
                   style={{
@@ -148,7 +148,7 @@ const SessionGraph = () => {
               <p>{batch5[0]?.attendedCount}</p>
             </div>
             <div className="flex justify-between items-baseline">
-              <p className="whitespace-nowrap">8:30 pm</p>
+              <p className="whitespace-nowrap">7:00 pm</p>
               <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
                 <div
                   style={{
