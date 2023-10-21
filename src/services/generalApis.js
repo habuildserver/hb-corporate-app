@@ -11,5 +11,6 @@ export const CorporatedataApis = {
   GET_ORG_ATTENDANCE: ()=>`${API_BASE_URL}/getOrgAttendance`,
   GET_ORG_AGE_PARTICIPATION: ()=>`${API_BASE_URL}/getAgeStats`,
   GET_ORG_GENDER_PARTICIPATION: ()=>`${API_BASE_URL}/getGenderStats`,
+  GET_ORG_POWER_USER: ()=>`${API_BASE_URL}/getOrgPowerUsers`,
 
 }

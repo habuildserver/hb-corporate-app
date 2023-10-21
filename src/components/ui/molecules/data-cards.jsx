@@ -58,7 +58,7 @@ const DataCards = () => {
           </div>
         </>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 max-[640px]:grid-cols-2 lg:grid-cols-4">
           <Card className="p-4 rounded-xl shadow-lg">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 p-0">
               <CardTitle className="text-[#6B6B6B] text-[14px] font-medium">

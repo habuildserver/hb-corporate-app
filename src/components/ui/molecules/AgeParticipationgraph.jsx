@@ -28,7 +28,7 @@ export function AgeParticipationgraph() {
     if (Object.keys(result.success).length != 0) {
       const formattedData = result?.success?.map((item, index) => ({
         id: item.age_range,
-        label: `${item.age_range} + yrs`,
+        label: `${item.age_range} yrs`,
         value: parseInt(item.user_count, 10),
         color:
           specificColors[item.age_range] ||

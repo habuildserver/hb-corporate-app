@@ -32,6 +32,7 @@ import SessionGraph from "@/components/ui/molecules/SessionAttendancegraph";
 import LogOut from "@/components/atoms/logout";
 import { AgeParticipationgraph } from "@/components/ui/molecules/AgeParticipationgraph";
 import { GenderParticipationgraph } from "@/components/ui/molecules/GenderParticipationgraph";
+import PowerUser from "@/components/ui/molecules/PowerUser";
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
 const API_BASE_URL = process.env.API_BASE_URL;
 // export const metadata: Metadata = {
@@ -39,18 +40,7 @@ const API_BASE_URL = process.env.API_BASE_URL;
 //   description: "Example dashboard app built using the components.",
 // }
 
-const topUserdetails = [
-  { id: 1, username: "hello", sessionattended: "69" },
-  { id: 2, username: "hello", sessionattended: "69" },
-  { id: 3, username: "hello", sessionattended: "69" },
-  { id: 4, username: "hello", sessionattended: "69" },
-  { id: 5, username: "hello", sessionattended: "69" },
-  { id: 6, username: "hello", sessionattended: "69" },
-  { id: 7, username: "hello", sessionattended: "69" },
-  { id: 8, username: "hello", sessionattended: "69" },
-  { id: 9, username: "hello", sessionattended: "69" },
-  { id: 10, username: "hello", sessionattended: "69" },
-];
+
 
 const Dashboard = () => {
 
@@ -60,24 +50,10 @@ const Dashboard = () => {
   return (
     <>
       <div className="">
-        {/* <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        /> */}
       </div>
       <div className="flex-col md:flex">
         <div className="border-b">
-          <div className="flex h-16 items-center px-4">
+          <div className="flex h-16 items-center px-4 shadow-lg">
             {/* <TeamSwitcher /> */}
             <MainNav className="mx-6" />
             <LogOut/>
@@ -97,20 +73,17 @@ const Dashboard = () => {
                 Welcome to Habuild Yoga Dashboard
               </p>
             </div>
-            <div className="">
+            {/* <div className="">
               <div className="flex items-center justify-between space-y-2">
                 <div className="flex items-center space-x-2">
                   <CalendarDateRangePicker />
                   <Button>Download</Button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className="flex px-6 py-3 max-[640px]:flex-col">
-            <Tabs defaultValue="overview" className="px-6 w-[70%]">
-              {/* <TabsList>
-              <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            </TabsList> */}
+          <div className="flex px-6 py-3 max-[640px]:flex-col max-[640px]:px-2">
+            <Tabs defaultValue="overview" className="px-6 w-[70%] max-[640px]:w-full">
               <TabsContent value="overview" className="space-y-4">
                 <DataCards />
                 <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
@@ -177,34 +150,8 @@ const Dashboard = () => {
                 </div>
               </TabsContent>
             </Tabs>
-            <div className="w-[30%] mt-2">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-[#6B6B6B] text-[14px] font-medium">
-                    Power users ( Top 20 attendees )
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-3">
-                  <div className="flex justify-between text-[14px] text-[#6B6B6B] px-3 pb-4">
-                    <p>Username</p>
-                    <p>Sessions attended</p>
-                  </div>
-                  {topUserdetails.map((data) => (
-                    <div key={data.id} className="px-3">
-                      <div className="flex justify-between items-center px-3">
-                        <div className="flex gap-3 items-center py-2">
-                          <div className="h-[32px] w-[32px] bg-black rounded-full"></div>
-                          <p className="text-[14px] font-normal">
-                            {data.username}
-                          </p>
-                        </div>
-                        <p>{data.sessionattended}</p>
-                      </div>
-                      <hr className="border-[1px]" />
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+            <div className="w-[30%] max-[640px]:w-full max-[640px]:mx-auto mt-2">
+              <PowerUser/>
             </div>
           </div>
         </div>
