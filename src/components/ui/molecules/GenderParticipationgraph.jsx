@@ -26,7 +26,7 @@ export function GenderParticipationgraph() {
     if (Object.keys(result?.success).length != 0) {
       const formattedData = Object.keys(result?.success).map((gender) => ({
         id: gender,
-        label: gender,
+        label: `${gender} : (${result?.success[gender]})`,
         value: parseInt(result?.success[gender], 10),
         color: specificGenderColors[gender] || `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
       }));
@@ -47,17 +47,18 @@ export function GenderParticipationgraph() {
               data={formattedData}
               margin={{ top: 40, right: 80, bottom: 80, left: 10 }}
               innerRadius={0.7}
-              padAngle={4}
-              cornerRadius={10}
+              padAngle={2}
+              cornerRadius={0}
               colors={{ scheme: "paired" }}
               borderWidth={1}
               borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
               enableArcLabels={true}
+              arcLabelsTextColor="#ffffff"
               arcLinkLabelsColor={{ from: "color" }}
               arcLinkLabelsStraightLength={15}
-              enableArcLinkLabels={true}
+              enableArcLinkLabels={false}
               enableRadialLabels={true}
-              sliceLabel={(d) => `${d.id}: ${d.value}`}
+              // sliceLabel={(d) => `${d.id}: ${d.value}`}
               radialLabelsSkipAngle={10}
               radialLabelsTextXOffset={6}
               radialLabelsTextColor="#333333"
@@ -73,7 +74,7 @@ export function GenderParticipationgraph() {
                   anchor: "right",
                   direction: "column",
                   justify: false,
-                  translateX: 65,
+                  translateX: 35,
                   translateY: 0,
                   itemWidth: 80,
                   itemHeight: 19,

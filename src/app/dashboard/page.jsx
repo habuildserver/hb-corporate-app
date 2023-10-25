@@ -105,7 +105,7 @@ const Dashboard = () => {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="Weekly">Weekly</SelectItem>
-                          <SelectItem value="Monthly">Monthly</SelectItem>
+                          {/* <SelectItem value="Monthly">Monthly</SelectItem> */}
                         </SelectContent>
                       </Select>
                     </CardHeader>

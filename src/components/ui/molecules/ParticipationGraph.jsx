@@ -55,7 +55,8 @@ export function ParticipationGraph({ participationType }) {
     );
     if (Object.keys(result.success).length != 0) {
       const formattedData = result.success.map((item) => ({
-        name: item.attendanceday,
+        // name: item.attendanceday,
+        name: item.attendancedate,
         Attendance: parseInt(item.attendancecount),
         Date: item.attendancedate
       }));

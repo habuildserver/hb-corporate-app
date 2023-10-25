@@ -28,7 +28,7 @@ export function AgeParticipationgraph() {
     if (Object.keys(result.success).length != 0) {
       const formattedData = result?.success?.map((item, index) => ({
         id: item.age_range,
-        label: `${item.age_range} yrs`,
+        label: `${item.age_range} yrs:  (${item.user_count})`,
         value: parseInt(item.user_count, 10),
         color:
           specificColors[item.age_range] ||
@@ -54,8 +54,8 @@ export function AgeParticipationgraph() {
               data={formattedData}
               margin={{ top: 40, right: 80, bottom: 80, left: 10 }}
               innerRadius={0.7}
-              padAngle={4}
-              cornerRadius={12}
+              padAngle={2}
+              cornerRadius={0}
               colors={{ scheme: "paired" }}
               borderWidth={1}
               borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
@@ -64,7 +64,7 @@ export function AgeParticipationgraph() {
               arcLinkLabelsColor={{ from: "color" }}
               arcLinkLabelsStraightLength={15}
               arcLinkLabelsDiagonalLength={30}
-              enableArcLinkLabels={true}
+              enableArcLinkLabels={false}
               enableRadialLabels={true}
               sliceLabel={(d) => `${d.id}: ${d.value}`}
               radialLabelsSkipAngle={10}
@@ -82,7 +82,7 @@ export function AgeParticipationgraph() {
                   anchor: "right",
                   direction: "column",
                   justify: false,
-                  translateX: 75,
+                  translateX: 55,
                   translateY: 0,
                   itemWidth: 80,
                   itemHeight: 19,
