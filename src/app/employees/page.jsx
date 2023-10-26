@@ -329,17 +329,17 @@ const Employees = () => {
                                 </td>
                                 <td className="px-4 py-2 text-center">
                                   {data?.status === "ACTIVE" ? (
-                                    <div className="bg-[#D8FFF2] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[40%] mx-auto">
+                                    <div className="bg-[#D8FFF2] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[50%] mx-auto">
                                       <Check className="h-4 w-4 text-[#358F71]" />
                                       <p className="text-[#358F71] font-bold text-sm">
-                                        Active
+                                        {data?.status}
                                       </p>
                                     </div>
                                   ) : (
-                                    <div className="bg-[#FF99334D] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[40%] mx-auto">
+                                    <div className="bg-[#FF99334D] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[50%] mx-auto">
                                       <Timer className="h-4 w-4 text-[#C06203]" />
                                       <p className="text-[#C06203] font-bold text-sm">
-                                        Paused
+                                      {data?.status}
                                       </p>
                                     </div>
                                   )}
