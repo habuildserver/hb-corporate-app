@@ -1,8 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Metadata } from "next";
 import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,9 +16,6 @@ import { CalendarDateRangePicker } from "@/components/ui/date-range-picker";
 import { MainNav } from "@/components/ui/main-nav";
 import { ParticipationGraph } from "@/components/ui/molecules/ParticipationGraph";
 import DataCards from "@/components/ui/molecules/data-cards";
-import { RecentSales } from "@/components/ui/recent-sales";
-import { Search } from "@/components/ui/search";
-// import TeamSwitcher from "@/components/ui/"y
 import { UserNav } from "@/components/ui/user-nav";
 import {
   Select,
@@ -28,12 +25,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import SessionGraph from "@/components/ui/molecules/SessionAttendancegraph";
-// import { LogOut } from "lucide-react";
 import LogOut from "@/components/atoms/logout";
 import { AgeParticipationgraph } from "@/components/ui/molecules/AgeParticipationgraph";
 import { GenderParticipationgraph } from "@/components/ui/molecules/GenderParticipationgraph";
 import PowerUser from "@/components/ui/molecules/PowerUser";
-import { useState } from "react";
+import CompanyLogo from "@/components/atoms/companyLogo";
+
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
 
 const Dashboard = () => {
@@ -45,7 +42,7 @@ const Dashboard = () => {
       <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4 shadow-lg">
-            {/* <TeamSwitcher /> */}
+            <CompanyLogo/>
             <MainNav className="mx-6" />
             <LogOut />
           </div>

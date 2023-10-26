@@ -82,7 +82,7 @@ export function AgeParticipationgraph() {
                   anchor: "right",
                   direction: "column",
                   justify: false,
-                  translateX: 55,
+                  translateX: 15,
                   translateY: 0,
                   itemWidth: 80,
                   itemHeight: 19,

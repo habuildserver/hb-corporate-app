@@ -17,6 +17,8 @@ import { Check, Timer, User2Icon } from "lucide-react";
 import Search from "@/components/atoms/searchBar";
 import { SearchIcon, X } from "lucide-react";
 import { toast } from "react-hot-toast";
+import CompanyLogo from "@/components/atoms/companyLogo";
+
 
 const Employees = () => {
   const [employeeList, setEmployeelist] = useState({});
@@ -26,13 +28,22 @@ const Employees = () => {
   const [showMenuSidebar, setShowMenuSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [totalpages, setTotalPage] = useState("");
+  const [pageNumber, setpageNumber] = useState(1);
+  const [previousPage, showPreviouspagetoggle] = useState(true);
+  const [nextPage, showNextpagetoggle] = useState(true);
+  const [showPagination, setShowPagination] = useState(true)
 
   const getEmployeeList = async () => {
     setLoading(true);
-    let result = await apiHelper(CorporatedataApis.GET_EMPLOYEE_LIST(), "GET");
+    let result = await apiHelper(
+      CorporatedataApis.GET_EMPLOYEE_LIST(pageNumber),
+      "GET"
+    );
 
     if (Object.keys(result.success).length != 0) {
       setEmployeelist(result?.success?.employees);
+      setTotalPage(result?.success?.totalpages);
       setLoading(false);
     }
     setLoading(false);
@@ -65,7 +76,7 @@ const Employees = () => {
 
   const handleSearch = async () => {
     // e.preventDefault();
-    debugger;
+
     if (!searchTerm || !searchFor) {
       toast.error("Enter Value To Search Member Details");
       return;
@@ -77,26 +88,12 @@ const Employees = () => {
         CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm),
         "GET"
       );
-      // debugger;
 
       if (Object.keys(queryData?.success).length != 0) {
         let memberResult = queryData?.success?.result;
         setEmployeelist(memberResult);
       }
 
-      // if (queryData?.error?.message) {
-      //   toast.error(JSON.stringify(queryData?.error?.message));
-      //   return;
-      // }
-      // if (queryData?.success?.memberProgramData?.rowCount === 0) {
-      //   toast.error("No Data Found");
-      //   setLoading(false);
-      //   return;
-      // }
-
-      // console.log(newMemberProgramData);
-
-      // setMemberProgramData(newMemberProgramData);
       setLoading(false);
     } catch (e) {
       toast.error(e.message);
@@ -104,14 +101,35 @@ const Employees = () => {
     }
   };
 
+  const handleNextPagination = () => {
+    let currentPage = pageNumber + 1;
+    setpageNumber(currentPage);
+  };
+  const handlePreviousPagination = () => {
+    let currentPage = pageNumber - 1;
+    setpageNumber(currentPage);
+  };
+
   useEffect(() => {
     getEmployeeList();
-  }, []);
+    // debugger;
+    if (pageNumber == totalpages) {
+    // if (pageNumber == totalpages) {
+      showNextpagetoggle(false);
+    } else {
+      showNextpagetoggle(true);
+    }
+    if (pageNumber == 1) {
+      showPreviouspagetoggle(false);
+    } else {
+      showPreviouspagetoggle(true);
+    }
+  }, [pageNumber]);
 
   return (
     <>
       <div className="flex h-16 items-center px-4 shadow-lg">
-        {/* <TeamSwitcher /> */}
+      <CompanyLogo/>
         <MainNav className="mx-6" />
         <LogOut />
       </div>
@@ -199,7 +217,7 @@ const Employees = () => {
                 <SearchIcon
                   title="Search"
                   onClick={() => {
-                    handleSearch()
+                    handleSearch();
                   }}
                   className="text-2xl text-gray-800 absolute right-3 top-2.5 cursor-pointer hover:transform hover:scale-110  "
                   style={{ padding: "0.15rem" }}
@@ -222,6 +240,32 @@ const Employees = () => {
             </div>
           </>
         </div>
+        {showPagination&&<div className="flex justify-center my-4">
+          <nav className="relative z-0 inline-flex shadow-sm">
+            {previousPage && (
+              <div
+                onClick={handlePreviousPagination}
+                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
+              >
+                Previous
+              </div>
+            )}
+
+            <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
+              Page {pageNumber} of {totalpages}
+            </span>
+
+            {nextPage && (
+              <div
+                onClick={handleNextPagination}
+                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
+              >
+                Next
+              </div>
+            )}
+          </nav>
+        </div>}
+
         <div className="py-2 px-8">
           {loading ? (
             <>
@@ -285,14 +329,14 @@ const Employees = () => {
                                 </td>
                                 <td className="px-4 py-2 text-center">
                                   {data?.status === "ACTIVE" ? (
-                                    <div className="bg-[#D8FFF2] p-2 flex justify-center gap-3 items-center rounded-md w-[40%] mx-auto">
+                                    <div className="bg-[#D8FFF2] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[40%] mx-auto">
                                       <Check className="h-4 w-4 text-[#358F71]" />
                                       <p className="text-[#358F71] font-bold text-sm">
                                         Active
                                       </p>
                                     </div>
                                   ) : (
-                                    <div className="bg-[#FF99334D] p-2 flex justify-center gap-3 items-center rounded-md w-[40%] mx-auto">
+                                    <div className="bg-[#FF99334D] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[40%] mx-auto">
                                       <Timer className="h-4 w-4 text-[#C06203]" />
                                       <p className="text-[#C06203] font-bold text-sm">
                                         Paused

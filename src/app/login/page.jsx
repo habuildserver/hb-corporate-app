@@ -10,6 +10,7 @@ const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [corporateDetails, setCorporateDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -34,6 +35,9 @@ const Login = () => {
     let result = await apiHelper(LoginApis.LOGIN(), "POST", inputData);
 
     if (Object.keys(result.success).length != 0) {
+      
+      const companyData = JSON.stringify(result.success);
+      localStorage.setItem("companyData", companyData);
       router.push("/dashboard");
       setLoading(false);
     } else {

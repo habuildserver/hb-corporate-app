@@ -14,6 +14,7 @@ const LogOut = ()=>{
         let data = await apiHelper(LoginApis.LOGOUT(), "GET");
         if (data?.success) {
           window.sessionStorage.removeItem("memberDetails");
+          localStorage.removeItem("companyData");
         } else {
           toast.error(data?.error?.message ?? "Something went wrong");
         }
