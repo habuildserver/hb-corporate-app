@@ -12,7 +12,7 @@ const CompanyLogo = () => {
   if (companyDataJSON?.logo_url) {
     logoUrl = companyDataJSON.logo_url;
   } else {
-    logoUrl = companyDataJSON.logo_url;
+    logoUrl = "";
   }
 
   return (
