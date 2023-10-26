@@ -100,15 +100,15 @@ const SessionGraph = () => {
                 <div
                   style={{
                     width:
-                    batch3[0]?.totalCount === 0
+                    batch5[0]?.totalCount === 0
                         ? `100%`
-                        : `${(batch3[0]?.attendedCount / batch3[0]?.totalCount) * 100}%`,
+                        : `${(batch5[0]?.attendedCount / batch5[0]?.totalCount) * 100}%`,
                   }}
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#98a4f6]"
                 >
                 </div>
               </div>
-              <p>{batch3[0]?.attendedCount}</p>
+              <p>{batch5[0]?.attendedCount}</p>
             </div>
           </div>
         </div>
@@ -117,38 +117,6 @@ const SessionGraph = () => {
           <div className="mt-3">
           <div className="flex justify-between items-baseline">
               <p className="whitespace-nowrap">5:00 pm</p>
-              <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
-                <div
-                  style={{
-                    width:
-                    batch4[0]?.totalCount === 0
-                        ? `100%`
-                        : `${(batch4[0]?.attendedCount / batch4[0]?.totalCount) * 100}%`,
-                  }}
-                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#c4ecc1]"
-                >
-                </div>
-              </div>
-              <p>{batch4[0]?.attendedCount}</p>
-            </div>
-            <div className="flex justify-between items-baseline">
-              <p className="whitespace-nowrap">6:00 pm</p>
-              <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
-                <div
-                  style={{
-                    width:
-                    batch5[0]?.totalCount === 0
-                        ? `100%`
-                        : `${(batch5[0]?.attendedCount / batch5[0]?.totalCount) * 100}%`,
-                  }}
-                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#c4ecc1]"
-                >
-                </div>
-              </div>
-              <p>{batch5[0]?.attendedCount}</p>
-            </div>
-            <div className="flex justify-between items-baseline">
-              <p className="whitespace-nowrap">7:00 pm</p>
               <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
                 <div
                   style={{
@@ -162,6 +130,38 @@ const SessionGraph = () => {
                 </div>
               </div>
               <p>{batch6[0]?.attendedCount}</p>
+            </div>
+            <div className="flex justify-between items-baseline">
+              <p className="whitespace-nowrap">6:00 pm</p>
+              <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
+                <div
+                  style={{
+                    width:
+                    batch3[0]?.totalCount === 0
+                        ? `100%`
+                        : `${(batch3[0]?.attendedCount / batch3[0]?.totalCount) * 100}%`,
+                  }}
+                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#c4ecc1]"
+                >
+                </div>
+              </div>
+              <p>{batch3[0]?.attendedCount}</p>
+            </div>
+            <div className="flex justify-between items-baseline">
+              <p className="whitespace-nowrap">7:00 pm</p>
+              <div className="overflow-hidden h-3 mb-4 text-xs flex rounded-xl bg-[#eaf9e8] w-3/4">
+                <div
+                  style={{
+                    width:
+                    batch4[0]?.totalCount === 0
+                        ? `100%`
+                        : `${(batch4[0]?.attendedCount / batch4[0]?.totalCount) * 100}%`,
+                  }}
+                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#c4ecc1]"
+                >
+                </div>
+              </div>
+              <p>{batch4[0]?.attendedCount}</p>
             </div>
           </div>
         </div>
