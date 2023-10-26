@@ -1,26 +1,20 @@
-"use client"
-
-
+"use client";
 
 import Image from "next/image";
 import { useEffect } from "react";
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
+import local from "local-storage";
 
 const CompanyLogo = () => {
   let logoUrl = "";
 
-  
-  useEffect(()=>{
-    const companyDataJSON = localStorage.getItem("companyData");
-    if (companyDataJSON) {
-      const companyData = JSON.parse(companyDataJSON);
-  
-      logoUrl = companyData.logo_url;
-    } else {
-      logoUrl = `${IMAGE_BASE_URL}/habuild_logo.png`;
-    }
+  const companyDataJSON = local.get("companyData");
+  if (companyDataJSON?.logo_url) {
+    logoUrl = companyDataJSON.logo_url;
+  } else {
+    logoUrl = `${IMAGE_BASE_URL}/habuild_logo.png`;
+  }
 
-  },[])
   return (
     <>
       <div className="mx-8">
