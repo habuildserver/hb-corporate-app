@@ -81,7 +81,7 @@ const Dashboard = () => {
                 <Card className="">
                     <CardHeader className="flex flex-row justify-between items-center py-2 px-6">
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
-                        Frequency of Participation
+                      Daily Attendance
                       </CardTitle>
                       {/* <Select>
                         <SelectTrigger className="w-[180px]">
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <Card className="">
                     <CardHeader>
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
-                        Session attendance
+                      Today&apos;s Session-wise Attendance
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">

@@ -122,7 +122,7 @@ const SessionGraph = () => {
         </div>
         </Card>
         <Card className="p-3">
-        <div className="mt-4">
+        <div className="">
           <p>Evening</p>
           <div className="mt-3">
           <div className="flex justify-between items-baseline">
