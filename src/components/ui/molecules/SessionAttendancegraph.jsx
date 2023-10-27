@@ -3,6 +3,13 @@
 import { apiHelper } from "@/lib/apiClient";
 import { CorporatedataApis } from "@/services/generalApis";
 import { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 
 
@@ -58,7 +65,8 @@ const SessionGraph = () => {
   }, []);
   return (
     <>
-      <div className="p-3">
+      <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+        <Card className="p-3">
         <div>
           <p>Morning</p>
           <div className="mt-3">
@@ -112,6 +120,8 @@ const SessionGraph = () => {
             </div>
           </div>
         </div>
+        </Card>
+        <Card className="p-3">
         <div className="mt-4">
           <p>Evening</p>
           <div className="mt-3">
@@ -165,6 +175,7 @@ const SessionGraph = () => {
             </div>
           </div>
         </div>
+        </Card>
       </div>
     </>
   );

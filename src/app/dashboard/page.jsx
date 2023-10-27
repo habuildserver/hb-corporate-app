@@ -77,8 +77,8 @@ const Dashboard = () => {
             >
               <TabsContent value="overview" className="space-y-4">
                 <DataCards />
-                <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-                  <Card className="">
+                <div>
+                <Card className="">
                     <CardHeader className="flex flex-row justify-between items-center py-2 px-6">
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
                         Frequency of Participation
@@ -110,7 +110,9 @@ const Dashboard = () => {
                       <ParticipationGraph participationType={participationType}/>
                     </CardContent>
                   </Card>
-                  <Card className="">
+                </div>
+                <div>
+                <Card className="">
                     <CardHeader>
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
                         Session attendance
@@ -120,6 +122,9 @@ const Dashboard = () => {
                       <SessionGraph />
                     </CardContent>
                   </Card>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+
                   <Card className="">
                     <CardHeader>
                       <CardTitle className="text-[#6B6B6B] text-[14px] font-medium]">
