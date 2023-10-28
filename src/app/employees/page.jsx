@@ -18,7 +18,13 @@ import Search from "@/components/atoms/searchBar";
 import { SearchIcon, X } from "lucide-react";
 import { toast } from "react-hot-toast";
 import CompanyLogo from "@/components/atoms/companyLogo";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Employees = () => {
   const [employeeList, setEmployeelist] = useState({});
@@ -32,7 +38,8 @@ const Employees = () => {
   const [pageNumber, setpageNumber] = useState(1);
   const [previousPage, showPreviouspagetoggle] = useState(true);
   const [nextPage, showNextpagetoggle] = useState(true);
-  const [showPagination, setShowPagination] = useState(true)
+  const [showPagination, setShowPagination] = useState(true);
+  const [searchParam, setSearchParams] = useState("")
 
   const getEmployeeList = async () => {
     setLoading(true);
@@ -49,11 +56,14 @@ const Employees = () => {
     setLoading(false);
   };
 
-  const handleSearchParamChange = (searchParam) => {
+  // const handleSearchParamChange = (searchParam) => {
+
+  //   setToggleDropdown(false);
+  //   // setSearchTerm("");
+  // };
+  useEffect(()=>{
     setSearchFor(searchParam);
-    setToggleDropdown(false);
-    // setSearchTerm("");
-  };
+  },[searchParam])
 
   const handleClear = () => {
     setSearchTerm("");
@@ -114,7 +124,7 @@ const Employees = () => {
     getEmployeeList();
     // debugger;
     if (pageNumber == totalpages) {
-    // if (pageNumber == totalpages) {
+      // if (pageNumber == totalpages) {
       showNextpagetoggle(false);
     } else {
       showNextpagetoggle(true);
@@ -129,7 +139,7 @@ const Employees = () => {
   return (
     <>
       <div className="flex h-16 items-center px-4 shadow-lg">
-      <CompanyLogo/>
+        <CompanyLogo />
         <MainNav className="mx-6" />
         <LogOut />
       </div>
@@ -150,7 +160,7 @@ const Employees = () => {
           <>
             <div className="flex justify-center">
               <div className="text-left">
-                <div>
+                {/* <div>
                   <button
                     className="h-11 border-gray-100 border-2 flex justify-center items-center rounded-l-md w-40 px-2  shadow-xs text-[14px] font-medium text-gray-700 bg-white    hover:bg-gray-50 focus:outline-none  "
                     type="button"
@@ -172,9 +182,9 @@ const Employees = () => {
                       <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                     </svg>
                   </button>
-                </div>
+                </div> */}
 
-                {toggleDropdown && (
+                {/* {toggleDropdown && (
                   <div className="z-50 absolute left-100 w-60 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="py-1">
                       <a
@@ -195,7 +205,20 @@ const Employees = () => {
                       </a>
                     </div>
                   </div>
-                )}
+                )} */}
+                <Select
+                  value={searchParam}
+                  onValueChange={setSearchParams}
+                  className="h-11 pl-4 pr-10"
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Mobile" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Mobile">Mobile</SelectItem>
+                    <SelectItem value="Name">Name</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* <form
@@ -207,7 +230,7 @@ const Employees = () => {
                 //   onSubmit={(e) => handleSearch(e)}
               >
                 <input
-                  className="w-full h-11 pl-4 pr-10 appearance-none  rounded-r-md text-gray-700 bg-gray-100 focus:outline-none focus:shadow-outline"
+                  className="w-full h-10 pl-4 pr-10 appearance-none  rounded-r-md text-gray-700 bg-gray-100 focus:outline-none focus:shadow-outline"
                   type={"text"}
                   value={searchTerm}
                   onFocus={() => setIsSearchFocused(true)}
@@ -240,47 +263,47 @@ const Employees = () => {
             </div>
           </>
         </div>
-        {showPagination&&<div className="flex justify-center my-4">
-          <nav className="relative z-0 inline-flex shadow-sm">
-            {previousPage && (
-              <div
-                onClick={handlePreviousPagination}
-                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
-              >
-                Previous
-              </div>
-            )}
+        {showPagination && (
+          <div className="flex justify-center my-4">
+            <nav className="relative z-0 inline-flex shadow-sm">
+              {previousPage && (
+                <div
+                  onClick={handlePreviousPagination}
+                  className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
+                >
+                  Previous
+                </div>
+              )}
 
-            <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
-              Page {pageNumber} of {totalpages}
-            </span>
+              <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
+                Page {pageNumber} of {totalpages}
+              </span>
 
-            {nextPage && (
-              <div
-                onClick={handleNextPagination}
-                className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
-              >
-                Next
-              </div>
-            )}
-          </nav>
-        </div>}
+              {nextPage && (
+                <div
+                  onClick={handleNextPagination}
+                  className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
+                >
+                  Next
+                </div>
+              )}
+            </nav>
+          </div>
+        )}
 
         <div className="py-2 px-8">
           {loading ? (
             <>
-              {/* <p className="bg-[#176FC1] p-2 text-center rounded-lg w-full text-white text-[10px] font-bold"> */}
-              {/* <Card className=""> */}
-              <div className="flex justify-center  items-center">
-                <div
-                  className="animate-spin rounded-full h-10 w-10 border-red-500 mr-2"
-                  style={{
-                    borderTop: "2px solid #000",
-                  }}
-                ></div>
+              <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="animate-pulse">
+                  {Array.from({ length: 20 }).map((index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-200 h-6 mb-2 rounded"
+                    ></div>
+                  ))}
+                </div>
               </div>
-              {/* </Card> */}
-              {/* </p> */}
             </>
           ) : (
             <>
@@ -339,7 +362,7 @@ const Employees = () => {
                                     <div className="bg-[#FF99334D] p-2 flex justify-center gap-3 items-center rounded-md w-full md:w-[50%] mx-auto">
                                       <Timer className="h-4 w-4 text-[#C06203]" />
                                       <p className="text-[#C06203] font-bold text-sm">
-                                      {data?.status}
+                                        {data?.status}
                                       </p>
                                     </div>
                                   )}
@@ -356,7 +379,9 @@ const Employees = () => {
                       </div>
                     ) : (
                       <>
-                        <p>Data not found</p>
+                        <p className="text-[24px] font-bold text-center">
+                          Data not found
+                        </p>
                       </>
                     )}
                   </div>
