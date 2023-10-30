@@ -13,5 +13,5 @@ export const CorporatedataApis = {
   GET_ORG_GENDER_PARTICIPATION: ()=>`${API_BASE_URL}/getGenderStats`,
   GET_ORG_POWER_USER: ()=>`${API_BASE_URL}/getOrgPowerUsers`,
   GET_EMPLOYEE_LIST: (pagenumber)=>`${API_BASE_URL}/getEmployeeList?pagesize=50&pagenumber=${pagenumber}`,
-  SEARCH_EMPLOYEE: (searchFor,searchTerm,pagenumber)=>`${API_BASE_URL}/getCorporateMemberdetails/${searchFor}/${searchTerm}?pagesize=50&pagenumber=${pagenumber}`
+  SEARCH_EMPLOYEE: (searchFor,searchTerm,pagenumber)=>`${API_BASE_URL}/getCorporateMemberdetails/${searchFor}/${searchTerm}?pagesize=5&pagenumber=${pagenumber}`
 }

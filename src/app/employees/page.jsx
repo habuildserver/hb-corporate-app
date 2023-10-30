@@ -87,7 +87,7 @@ const Employees = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (resetPageNumber) => {
     // e.preventDefault();
 
     if (!searchTerm || !searchFor) {
@@ -95,11 +95,16 @@ const Employees = () => {
       return;
     }
 
+    if(resetPageNumber){
+      debugger;
+      setpageNumber(1)
+    } 
+
     try {
       setLoading(true);
       setIsdisable(true);
       const queryData = await apiHelper(
-        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm, pageNumber),
+        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm, resetPageNumber||pageNumber),
         "GET"
       );
 
@@ -251,7 +256,7 @@ const Employees = () => {
                 <SearchIcon
                   title="Search"
                   onClick={() => {
-                    handleSearch();
+                    handleSearch(1);
                   }}
                   className="text-2xl text-gray-800 absolute right-3 top-2.5 cursor-pointer hover:transform hover:scale-110  "
                   style={{ padding: "0.15rem" }}
