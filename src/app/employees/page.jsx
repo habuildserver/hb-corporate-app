@@ -30,8 +30,6 @@ const Employees = () => {
   const [employeeList, setEmployeelist] = useState({});
   const [searchFor, setSearchFor] = useState("Mobile");
   const [searchTerm, setSearchTerm] = useState();
-  const [toggleDropdown, setToggleDropdown] = useState(false);
-  const [showMenuSidebar, setShowMenuSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [totalpages, setTotalPage] = useState("");
@@ -39,10 +37,12 @@ const Employees = () => {
   const [previousPage, showPreviouspagetoggle] = useState(true);
   const [nextPage, showNextpagetoggle] = useState(true);
   const [showPagination, setShowPagination] = useState(true);
-  const [searchParam, setSearchParams] = useState("")
+  const [searchParam, setSearchParams] = useState("Mobile");
+  const [isDisable, setIsdisable] = useState(false);
 
   const getEmployeeList = async () => {
     setLoading(true);
+    setIsdisable(true);
     let result = await apiHelper(
       CorporatedataApis.GET_EMPLOYEE_LIST(pageNumber),
       "GET"
@@ -52,8 +52,10 @@ const Employees = () => {
       setEmployeelist(result?.success?.employees);
       setTotalPage(result?.success?.totalpages);
       setLoading(false);
+      setIsdisable(false);
     }
     setLoading(false);
+    setIsdisable(false);
   };
 
   // const handleSearchParamChange = (searchParam) => {
@@ -61,14 +63,15 @@ const Employees = () => {
   //   setToggleDropdown(false);
   //   // setSearchTerm("");
   // };
-  useEffect(()=>{
+  useEffect(() => {
     setSearchFor(searchParam);
-  },[searchParam])
+  }, [searchParam]);
 
   const handleClear = () => {
     setSearchTerm("");
     getEmployeeList();
-    // setMemberProgramData([]);
+    setpageNumber(1);
+    setShowPagination(true);
   };
 
   const handleSearchInputChange = (e) => {
@@ -94,20 +97,25 @@ const Employees = () => {
 
     try {
       setLoading(true);
+      setIsdisable(true);
       const queryData = await apiHelper(
-        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm),
+        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm, pageNumber),
         "GET"
       );
 
       if (Object.keys(queryData?.success).length != 0) {
         let memberResult = queryData?.success?.result;
-        setEmployeelist(memberResult);
+        setEmployeelist(memberResult?.employees);
+        setpageNumber(memberResult?.pagenumber);
+        setTotalPage(memberResult?.totalpages);
       }
 
       setLoading(false);
+      setIsdisable(false);
     } catch (e) {
       toast.error(e.message);
       setLoading(false);
+      setIsdisable(false);
     }
   };
 
@@ -121,10 +129,13 @@ const Employees = () => {
   };
 
   useEffect(() => {
-    getEmployeeList();
-    // debugger;
+    if (searchTerm) {
+      handleSearch();
+    } else {
+      getEmployeeList();
+    }
+
     if (pageNumber == totalpages) {
-      // if (pageNumber == totalpages) {
       showNextpagetoggle(false);
     } else {
       showNextpagetoggle(true);
@@ -222,9 +233,9 @@ const Employees = () => {
               </div>
 
               {/* <form
-          className="w-3/4 inline-block mr-5 mb-5 relative"
-          onSubmit={(e) => handleSearch(e)}
-        > */}
+                className="w-3/4 inline-block mr-5 mb-5 relative"
+                onSubmit={(e) => handleSearch(e)}
+              > */}
               <div
                 className="w-3/4 inline-block mr-5 mb-5 relative"
                 //   onSubmit={(e) => handleSearch(e)}
@@ -258,8 +269,8 @@ const Employees = () => {
                     className="text-2xl text-gray-800 absolute right-12 top-2.5  cursor-pointer mr-4 hover:transform hover:scale-110 "
                   />
                 )}
-                {/* </form> */}
               </div>
+              {/* </form> */}
             </div>
           </>
         </div>
@@ -267,25 +278,27 @@ const Employees = () => {
           <div className="flex justify-center my-4">
             <nav className="relative z-0 inline-flex shadow-sm">
               {previousPage && (
-                <div
+                <button
                   onClick={handlePreviousPagination}
+                  disabled={isDisable}
                   className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
                 >
                   Previous
-                </div>
+                </button>
               )}
 
               <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300">
                 Page {pageNumber} of {totalpages}
               </span>
 
-              {nextPage && (
-                <div
+              {(nextPage && (pageNumber!=totalpages)) && (
+                <button
                   onClick={handleNextPagination}
+                  disabled={isDisable}
                   className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-pointer hover:text-gray-700"
                 >
                   Next
-                </div>
+                </button>
               )}
             </nav>
           </div>
