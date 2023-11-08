@@ -47,7 +47,6 @@ const Employees = () => {
       CorporatedataApis.GET_EMPLOYEE_LIST(pageNumber),
       "GET"
     );
-
     if (Object.keys(result.success).length != 0) {
       setEmployeelist(result?.success?.employees);
       setTotalPage(result?.success?.totalpages);
@@ -65,6 +64,7 @@ const Employees = () => {
   // };
   useEffect(() => {
     setSearchFor(searchParam);
+    setpageNumber(1);
   }, [searchParam]);
 
   const handleClear = () => {
@@ -87,26 +87,32 @@ const Employees = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSearch = async (resetPageNumber) => {
-    // e.preventDefault();
+  const handleSearch = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
 
     if (!searchTerm || !searchFor) {
       toast.error("Enter Value To Search Member Details");
       return;
     }
 
-    if(resetPageNumber){
-      debugger;
-      setpageNumber(1)
-    } 
-
     try {
       setLoading(true);
       setIsdisable(true);
       const queryData = await apiHelper(
-        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm, resetPageNumber||pageNumber),
+        CorporatedataApis.SEARCH_EMPLOYEE(searchFor, searchTerm, pageNumber),
         "GET"
       );
+
+      if(queryData?.success?.message){
+        toast.error(queryData?.success?.message)
+        setLoading(false);
+        setIsdisable(false);
+        setShowPagination(false)
+        setEmployeelist([])
+        return;
+      }
 
       if (Object.keys(queryData?.success).length != 0) {
         let memberResult = queryData?.success?.result;
@@ -237,45 +243,45 @@ const Employees = () => {
                 </Select>
               </div>
 
-              {/* <form
+              <form
                 className="w-3/4 inline-block mr-5 mb-5 relative"
                 onSubmit={(e) => handleSearch(e)}
-              > */}
-              <div
-                className="w-3/4 inline-block mr-5 mb-5 relative"
-                //   onSubmit={(e) => handleSearch(e)}
               >
-                <input
-                  className="w-full h-10 pl-4 pr-10 appearance-none  rounded-r-md text-gray-700 bg-gray-100 focus:outline-none focus:shadow-outline"
-                  type={"text"}
-                  value={searchTerm}
-                  onFocus={() => setIsSearchFocused(true)}
-                  onChange={handleSearchInputChange}
-                  placeholder="Search by Name / Mobile Number"
-                />
-                <SearchIcon
-                  title="Search"
-                  onClick={() => {
-                    handleSearch(1);
-                  }}
-                  className="text-2xl text-gray-800 absolute right-3 top-2.5 cursor-pointer hover:transform hover:scale-110  "
-                  style={{ padding: "0.15rem" }}
-                />
-                {isSearchFocused && (
-                  <span className="text-xl text-gray-600 absolute right-10 top-1 translate-y-1 mr-2 ">
-                    |
-                  </span>
-                )}
-                {isSearchFocused && (
-                  <X
-                    onClick={handleClear}
-                    title="Clear"
-                    style={{ padding: "0.15rem" }}
-                    className="text-2xl text-gray-800 absolute right-12 top-2.5  cursor-pointer mr-4 hover:transform hover:scale-110 "
+                <div
+                  className="w-3/4 inline-block mr-5 mb-5 relative"
+                  //   onSubmit={(e) => handleSearch(e)}
+                >
+                  <input
+                    className="w-full h-10 pl-4 pr-10 appearance-none  rounded-r-md text-gray-700 bg-gray-100 focus:outline-none focus:shadow-outline"
+                    type={"text"}
+                    value={searchTerm}
+                    onFocus={() => setIsSearchFocused(true)}
+                    onChange={handleSearchInputChange}
+                    placeholder="Search by Name / Mobile Number"
                   />
-                )}
-              </div>
-              {/* </form> */}
+                  <SearchIcon
+                    title="Search"
+                    onClick={(e) => {
+                      handleSearch(e);
+                    }}
+                    className="text-2xl text-gray-800 absolute right-3 top-2.5 cursor-pointer hover:transform hover:scale-110  "
+                    style={{ padding: "0.15rem" }}
+                  />
+                  {isSearchFocused && (
+                    <span className="text-xl text-gray-600 absolute right-10 top-1 translate-y-1 mr-2 ">
+                      |
+                    </span>
+                  )}
+                  {isSearchFocused && (
+                    <X
+                      onClick={handleClear}
+                      title="Clear"
+                      style={{ padding: "0.15rem" }}
+                      className="text-2xl text-gray-800 absolute right-12 top-2.5  cursor-pointer mr-4 hover:transform hover:scale-110 "
+                    />
+                  )}
+                </div>
+              </form>
             </div>
           </>
         </div>
@@ -296,7 +302,7 @@ const Employees = () => {
                 Page {pageNumber} of {totalpages}
               </span>
 
-              {(nextPage && (pageNumber!=totalpages)) && (
+              {nextPage && pageNumber != totalpages && (
                 <button
                   onClick={handleNextPagination}
                   disabled={isDisable}
