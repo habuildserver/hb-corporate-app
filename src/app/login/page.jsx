@@ -7,6 +7,33 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 const IMAGE_BASE_URL = process.env.IMAGE_BASE_URL;
+import {signIn,signOut} from "aws-amplify/auth"
+import { Amplify, ResourcesConfig } from "aws-amplify";
+import { CookieStorage } from 'aws-amplify/utils';
+import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
+
+const authConfig = {
+  Cognito: {
+    userPoolId: process.env.NEXT_PUBLIC_POOL_ID,
+    userPoolClientId: process.env.NEXT_PUBLIC_POOL_CLIENT_ID
+  }
+};
+
+
+Amplify.configure({
+  Auth: authConfig
+}, {
+  ssr: true
+});
+
+cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
+
+const SignIn = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+}
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -15,43 +42,72 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [showPassword, setshowpassword] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  const login = async () => {
-    if (!email && !password) {
-      toast.error("Please Enter Email and Password");
-      return;
-    }
-    if (!email) {
-      toast.error("Please Enter Email");
-      return;
-    }
-    if (!password) {
-      toast.error("Please Enter Password");
-      return;
-    }
-    setLoading(true);
-    let inputData = {
-      username: email,
-      password: password,
-    };
-    let result = await apiHelper(LoginApis.LOGIN(), "POST", inputData);
+  const handleInputChange = (event) => {
+    setIsError(false);
+    setUser({ ...user, [event.target.name]: event.target.value });
+};
 
-    if (Object.keys(result.success).length != 0) {
-      const companyData = JSON.stringify(result.success);
-      localStorage.setItem("companyData", companyData);
-      router.push("/dashboard");
+const handleSubmit = async (event) => {
+  setLoading(true);
+  setIsError(false);
+  event.preventDefault();
+  try {
+      await signOut();
+      const { isSignedIn } = await signIn({
+          username: user.email,
+          password: user.password,
+          options: { authFlowType: 'USER_PASSWORD_AUTH' }
+      });
       setLoading(false);
-    } else {
+      if (isSignedIn) {
+          router.push('/dashboard');
+      }
+  } catch (e) {
+      console.log('handleSubmit on signSignin', e);
+      setIsError(true);
       setLoading(false);
-      toast.error(`${result.error.message}` || "Something went wrong");
-    }
-    setLoading(false);
-  };
+      setErrorMessage(e.message);
+  }
+};
 
-  const emailInputRef = useRef(null);
-  useEffect(() => {
-    emailInputRef.current.focus();
-  }, []);
+  // const login = async () => {
+  //   if (!email && !password) {
+  //     toast.error("Please Enter Email and Password");
+  //     return;
+  //   }
+  //   if (!email) {
+  //     toast.error("Please Enter Email");
+  //     return;
+  //   }
+  //   if (!password) {
+  //     toast.error("Please Enter Password");
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   let inputData = {
+  //     username: email,
+  //     password: password,
+  //   };
+  //   let result = await apiHelper(LoginApis.LOGIN(), "POST", inputData);
+
+  //   if (Object.keys(result.success).length != 0) {
+  //     const companyData = JSON.stringify(result.success);
+  //     localStorage.setItem("companyData", companyData);
+  //     router.push("/dashboard");
+  //     setLoading(false);
+  //   } else {
+  //     setLoading(false);
+  //     toast.error(`${result.error.message}` || "Something went wrong");
+  //   }
+  //   setLoading(false);
+  // };
+
+  // const emailInputRef = useRef(null);
+  // useEffect(() => {
+  //   emailInputRef.current.focus();
+  // }, []);
 
 
   return (
