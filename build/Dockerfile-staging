@@ -1,0 +1,8 @@
+FROM 963127282571.dkr.ecr.ap-south-1.amazonaws.com/nodeslim:latest
+RUN mkdir -p /app
+WORKDIR /app
+COPY . .
+RUN npm install -g dotenv-cli
+RUN npm install
+RUN npm run build:stage
+CMD [ "npm", "run", "start:stage" ]

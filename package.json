@@ -1,11 +1,15 @@
 {
-  "name": "hb-corporate-app",
+  "name": "corporate-fe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:stage": "dotenv -e .env.stage -- next build",
+    "build:production": "dotenv -e .env.production -- next build",
     "start": "next start",
+    "start:stage": "dotenv -e .env.stage -- next start",
+    "start:production": "dotenv -e .env.production -- next start",
     "lint": "next lint"
   },
   "dependencies": {
