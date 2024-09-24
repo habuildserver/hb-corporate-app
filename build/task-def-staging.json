@@ -1,0 +1,33 @@
+{
+  "executionRoleArn": "arn:aws:iam::963127282571:role/task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "corporate-fe-staging",
+      "image": "963127282571.dkr.ecr.ap-south-1.amazonaws.com/corporate-fe-staging",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 4001,
+          "protocol": "tcp",
+          "containerPort": 3000
+        }
+      ],
+
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "corporate-fe-staging",
+          "awslogs-region": "ap-south-1",
+          "awslogs-create-group": "true",
+          "awslogs-stream-prefix": "corporate-fe-staging"
+        }
+      }
+    }
+  ],
+
+  "requiresCompatibilities": ["EXTERNAL", "EC2"],
+
+  "cpu": "500",
+  "memory": "800",
+  "family": "corporate-fe-staging"
+}

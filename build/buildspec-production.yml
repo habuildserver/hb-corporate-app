@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+    - echo docker login
+    - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 963127282571.dkr.ecr.ap-south-1.amazonaws.com
+
+    - echo Building the Docker image ...
+    - docker build -f build/Dockerfile-production -t 963127282571.dkr.ecr.ap-south-1.amazonaws.com/corporate-fe-production:latest .
+
+  post_build:
+    commands:
+    - echo docker login
+    - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 963127282571.dkr.ecr.ap-south-1.amazonaws.com
+
+    - echo Pushing the Docker image...
+    - docker push 963127282571.dkr.ecr.ap-south-1.amazonaws.com/corporate-fe-production:latest
+
+    - echo register new task def
+    - aws ecs register-task-definition --cli-input-json file://./build/task-def-production.json
+
+    - echo update ecs service with new task def
+    - aws ecs update-service --service corporate-fe-production --task-definition corporate-fe-production --cluster production
